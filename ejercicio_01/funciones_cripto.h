@@ -58,7 +58,7 @@ void Foreword() {
 void cripto_funcion(char* argv[]){
   unsigned i,j;
   int metodo= strtol(argv[3],0,10);
-
+  int n_frases;
 //METODO DE CODIFICACION XOR
   if(metodo==1){
     std::string operacion = argv[5],password = argv[4], entrada= argv[1], salida=argv[2], frase;
@@ -90,7 +90,10 @@ void cripto_funcion(char* argv[]){
           int bit3= bit1^bit2;
           char bit_final = bit3+31; 
           archivo_codificado<< bit_final;
-
+          if(letra2=="."){
+            ++n_frases;
+          }
+         
           if(j==vector_password.size()-1){
             j=0;
           }
@@ -99,6 +102,7 @@ void cripto_funcion(char* argv[]){
       }
        archivo_codificado.close();
        entrada_lectura.close();
+       std::cout<<"El numero de frases es: "<<n_frases<<std::endl;
     }
     if(operacion=="-"){
 
@@ -117,7 +121,9 @@ void cripto_funcion(char* argv[]){
           int bit3= bit1^bit2;
           char bit_final = bit3; 
           archivo_descodificado<< bit_final;
-          
+          if(letra2=="."){
+            ++n_frases;
+          }
           if(j==vector_password.size()-1){  // REPETIR LA PALABRA PASSWORD HASTA QUE SE ACABE LA FRASE DEL .TXT
             j=0;
           }
@@ -126,6 +132,7 @@ void cripto_funcion(char* argv[]){
       }
        archivo_descodificado.close();
        salida_lectura.close();
+       std::cout<<"El numero de frases es: "<<n_frases<<std::endl;
     }
 
 //METODO DE CODIFICACION CESAR
@@ -149,10 +156,13 @@ void cripto_funcion(char* argv[]){
           char letra = frase[i];
           letra = letra + password;
           archivo_codificado<<letra;
+          if(letra2=="."){
+            ++n_frases;
+          }
         }
         archivo_codificado<<"\n";
       }
-
+    std::cout<<"El numero de frases es: "<<n_frases<<std::endl;
     archivo_codificado.close();
     archivo_codificado.close();
     }
@@ -167,9 +177,13 @@ void cripto_funcion(char* argv[]){
           char letra = frase[i];
           letra = letra - password;
           archivo_descodificado<<letra;
+          if(letra2=="."){
+            ++n_frases;
+          }
         }
         archivo_descodificado<<"\n";
       }
+    std::cout<<"El numero de frases es: "<<n_frases<<std::endl;
     archivo_descodificado.close();
     salida_lectura.close();
     }
